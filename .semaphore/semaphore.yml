@@ -22,3 +22,16 @@ blocks:
         machine:
           type: e1-standard-2
           os_image: ubuntu1804
+  - name: Test
+    task:
+      env_vars:
+        - name: MAVEN_OPTS
+          value: '-Dmaven.repo.local=.m2'
+      prologue:
+        commands:
+          - 'checkout '
+          - cache restore
+      jobs:
+        - name: Spock Test
+          commands:
+            - ./mvnw test

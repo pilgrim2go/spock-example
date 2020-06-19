@@ -5,11 +5,20 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Maven
+  - name: Java-Spock
     task:
       jobs:
         - name: Build
           commands:
             - checkout
+            - cache restore
             - sem-version java 1.8
-            - mvn -B package --file pom.xml
+            - ./mvnw package -Dmaven.test.skip=true
+            - cache store
+      env_vars:
+        - name: MAVEN_OPTS
+          value: '-Dmaven.repo.local=.m2'
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804

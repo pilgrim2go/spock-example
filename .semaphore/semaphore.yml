@@ -35,3 +35,9 @@ blocks:
         - name: Spock Test
           commands:
             - ./mvnw test
+  - name: 'Block #3'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - echo Done
